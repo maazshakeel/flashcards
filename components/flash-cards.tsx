@@ -6,7 +6,7 @@ function delay(ms: number) {
 }
 
 async function getDecks() {
-  await delay(2000);
+  await delay(1000);
 
   const res = await fetch("http://localhost:3002/api/deck", {
     cache: "no-cache",
