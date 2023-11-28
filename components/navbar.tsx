@@ -23,7 +23,7 @@ export default function Navbar() {
       <div className="w-full flex justify-between items-center">
         <div className="flex gap-1 items-center">
           <Zap size={20} />
-          <MenubarMenu className="">LetFlash</MenubarMenu>
+          <MenubarMenu>LetFlash</MenubarMenu>
         </div>
         <div className="flex gap-1 items-center">
           <MenubarMenu>
