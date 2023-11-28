@@ -25,7 +25,21 @@ export default function Navbar() {
           <Zap size={20} />
           <MenubarMenu className="">LetFlash</MenubarMenu>
         </div>
-        <ModeToggle />
+        <div className="flex gap-1 items-center">
+          <MenubarMenu>
+            <MenubarTrigger>Create Deck</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                Flashcard <MenubarShortcut>⌘T</MenubarShortcut>
+              </MenubarItem>
+              <MenubarItem>
+                Upload File <MenubarShortcut>⌘N</MenubarShortcut>
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+
+          <ModeToggle />
+        </div>
       </div>
     </Menubar>
   );
