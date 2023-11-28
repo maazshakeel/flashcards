@@ -1,4 +1,4 @@
-import FlashCards from "@/components/flash-cards";
+import FlashCards from "@/components/flashcards";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
@@ -12,12 +12,14 @@ export default function Home() {
       {/* @ts-ignore */}
       <FlashCards />
       <div className="fixed overflow-hidden bottom-5 right-5">
-        <Button
-          variant={"outline"}
-          className="border-dashed sm:py-12 sm:px-16 py-10 px-10"
-        >
-          <Plus size={50} />
-        </Button>
+        <Link href={"/create"}>
+          <Button
+            variant={"outline"}
+            className="border-dashed sm:py-12 sm:px-16 py-10 px-10"
+          >
+            <Plus size={50} />
+          </Button>
+        </Link>
       </div>
     </div>
   );

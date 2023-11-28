@@ -1,4 +1,4 @@
-import FlashCard from "@/components/flash-card";
+import FlashCard from "@/components/flashcard";
 import Link from "next/link";
 
 function delay(ms: number) {
@@ -6,11 +6,7 @@ function delay(ms: number) {
 }
 
 async function getDecks() {
-  await delay(1000);
-
-  const res = await fetch("http://localhost:3002/api/deck", {
-    cache: "no-cache",
-  });
+  const res = await fetch("http://localhost:3002/api/deck", {});
   return res.json();
 }
 
