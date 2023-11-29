@@ -1,8 +1,11 @@
 import FlashCard from "@/components/flashcard";
 import Link from "next/link";
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
 
 async function getDecks() {
-  const res = await fetch("https://letflash.vercel.app/api/deck/", {
+  const res = await fetch(`${publicRuntimeConfig.apiUrl}/api/deck/`, {
     headers: { "content-type": "application/json" },
   });
   return res.json();
