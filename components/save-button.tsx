@@ -87,7 +87,7 @@ export default function SaveButton({
         <DialogHeader>
           <DialogTitle>Save Changes</DialogTitle>
           <DialogDescription>
-            Make changes to your deck here. Click save when you're done.
+            Make changes to your deck here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

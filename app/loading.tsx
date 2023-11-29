@@ -11,7 +11,10 @@ export default function Loading() {
       {/* @ts-ignore */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Array.from({ length: 12 }, (_, i) => i + 1).map((id) => (
-          <div className="flex items-start space-x-4 pt-3 pl-3 hover:bg-none hover:cursor-default">
+          <div
+            key={id}
+            className="flex items-start space-x-4 pt-3 pl-3 hover:bg-none hover:cursor-default"
+          >
             <div className="space-y-5">
               <Skeleton className="h-4 w-[100px]" />
               <Skeleton className="h-4 w-[350px]" />
