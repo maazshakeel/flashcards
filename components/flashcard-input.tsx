@@ -22,14 +22,14 @@ export default function FlashCardInput({
   setQuestion,
   setAnswer,
 }: FlashCardInput) {
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
 
   const toggleForm = () => {
     setShowForm(!showForm);
   };
 
   return (
-    <Card className="lg:max-w-4xl w-full shadow-sm">
+    <Card className="lg:max-w-4xl w-full shadow-sm mb-5">
       <CardHeader>
         <div className="flex justify-between items-start ">
           <div className="flex justify-center items-start gap-3 ">
@@ -40,7 +40,7 @@ export default function FlashCardInput({
               {showForm ? <ChevronUp /> : <ChevronDown />}
             </button>
             <div>
-              <CardTitle>Flashcard 1</CardTitle>
+              <CardTitle>Flashcard {id}</CardTitle>
               <CardDescription className="mt-1">
                 Give your flashcard a question and answer.
               </CardDescription>

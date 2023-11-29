@@ -13,8 +13,14 @@ export type CreateDeckRequestBody = {
 
 export type FlashCardInput = {
   id: number;
-  setQuestion: Dispatch<SetStateAction<string>>;
-  setAnswer: Dispatch<SetStateAction<string>>;
   answer: string;
   question: string;
+  setQuestion: (value: string) => void;
+  setAnswer: (value: string) => void;
+};
+
+export type TFlashcard = {
+  id: number;
+  question: string;
+  answer: string;
 };
