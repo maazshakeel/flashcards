@@ -6,9 +6,14 @@ export type FlashCardProps = {
   description: string;
 };
 
+export type TFlashcard = {
+  id: number;
+  question: string;
+  answer: string;
+};
 export type CreateDeckRequestBody = {
   deckName: string;
-  flashcards: Flashcard[];
+  flashcards: TFlashcard[];
 };
 
 export type FlashCardInput = {
@@ -17,10 +22,5 @@ export type FlashCardInput = {
   question: string;
   setQuestion: (value: string) => void;
   setAnswer: (value: string) => void;
-};
-
-export type TFlashcard = {
-  id: number;
-  question: string;
-  answer: string;
+  onDelete: (id: number) => void;
 };

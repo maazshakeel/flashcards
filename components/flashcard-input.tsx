@@ -21,6 +21,7 @@ export default function FlashCardInput({
   question,
   setQuestion,
   setAnswer,
+  onDelete,
 }: FlashCardInput) {
   const [showForm, setShowForm] = useState(false);
 
@@ -47,7 +48,10 @@ export default function FlashCardInput({
             </div>
           </div>
 
-          <button className="hover:cursor-pointer shadow-sm">
+          <button
+            className="hover:cursor-pointer shadow-sm"
+            onClick={() => onDelete(id)}
+          >
             <XCircle className="relative bottom-0 left-0" />
           </button>
         </div>

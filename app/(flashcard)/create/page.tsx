@@ -1,17 +1,18 @@
 "use client";
 
 import FlashCardInput from "@/components/flashcard-input";
+import SaveButton from "@/components/save-button";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TFlashcard } from "@/types/flash-card.types";
 import { Plus, PlusSquare } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 type CreateDeckProps = {};
 
 export default function CreateDeck({}: CreateDeckProps) {
-  const [answer, setAnswer] = useState<string>("");
-  const [question, setQuestion] = useState<string>("");
+  const [deckName, setDeckName] = useState<string>("");
 
   const [flashcards, setFlashcards] = useState<TFlashcard[]>([
     { id: 1, question: "", answer: "" }, // Initial flashcard
@@ -35,6 +36,11 @@ export default function CreateDeck({}: CreateDeckProps) {
     ]);
   };
 
+  const deleteFlashcard = (id: number) => {
+    const updatedFlashcards = flashcards.filter((card) => card.id !== id);
+    setFlashcards(updatedFlashcards);
+  };
+
   return (
     <div className="p-14 flex flex-col gap-6">
       <div>
@@ -45,6 +51,10 @@ export default function CreateDeck({}: CreateDeckProps) {
           type="text"
           placeholder="e.x: vocabulary"
           className="lg:max-w-lg p-5 py-6 text-md mt-5 w-full shadow-sm"
+          value={deckName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setDeckName(e.target.value)
+          }
         />
       </div>
       <div>
@@ -64,15 +74,14 @@ export default function CreateDeck({}: CreateDeckProps) {
               setAnswer={(value: string) =>
                 handleFlashcardChange(index, "answer", value)
               }
+              onDelete={deleteFlashcard}
             />
           ))}
-          {/* <FlashCardInput
-            id={1}
-            answer={answer}
-            question={question}
-            setQuestion={setQuestion}
-            setAnswer={setAnswer}
-          /> */}
+          {flashcards.length === 0 && (
+            <p className="text-xl text-muted-foreground">
+              No flashcard yet been added!
+            </p>
+          )}
           <Button
             variant={"outline"}
             className="transition-all border-dashed sm:py-12 sm:px-16 py-10 px-10 lg:max-w-4xl w-full shadow-sm flex gap-2 mt-5"
@@ -83,6 +92,23 @@ export default function CreateDeck({}: CreateDeckProps) {
               Add a new card
             </p>
           </Button>
+        </div>
+
+        <div className="lg:max-w-4xl w-full flex justify-end gap-2 mt-5">
+          <Link href="..">
+            <Button variant="outline" className="px-10 py-6">
+              Cancel
+            </Button>
+          </Link>
+          {/* <Button disabled={flashcards.length === 0} className="px-10 py-6">
+            Save
+          </Button> */}
+          <SaveButton
+            disabled={flashcards.length === 0}
+            deckName={deckName}
+            flashcards={flashcards}
+            setDeckName={setDeckName}
+          />
         </div>
       </div>
     </div>

@@ -9,7 +9,6 @@ export default function Home() {
       <h1 className="scroll-m-20 text-3xl font-extrabold tracking-wide lg:text-4xl">
         Current Decks
       </h1>
-      {/* @ts-ignore */}
       <FlashCards />
       <div className="fixed overflow-hidden bottom-5 right-5">
         <Link href={"/create"}>

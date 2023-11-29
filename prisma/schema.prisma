@@ -13,7 +13,6 @@ datasource db {
 model Deck {
   id       Int      @id @default(autoincrement())
   deckName String
-  userId   Int?
   flashcards Flashcard[]
 }
 

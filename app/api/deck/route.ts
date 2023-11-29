@@ -7,13 +7,18 @@ export async function POST(request: NextRequest) {
   try {
     const req = await request.json();
     const { deckName, flashcards }: CreateDeckRequestBody = req;
+    console.log(req.flashcards);
+    // return NextResponse.json({ status: 200 });
 
     // Create Deck
     const deck = await db.deck.create({
       data: {
         deckName,
         flashcards: {
-          create: flashcards,
+          create: {
+            answer: flashcards[0].answer,
+            question: flashcards[0].answer,
+          },
         },
       },
       include: {
