@@ -41,8 +41,8 @@ export default function FlashCardInput({
               {showForm ? <ChevronUp /> : <ChevronDown />}
             </button>
             <div>
-              <CardTitle>Flashcard {id}</CardTitle>
-              <CardDescription className="mt-1">
+              <CardTitle className="text-md">Flashcard {id}</CardTitle>
+              <CardDescription className="mt-1 text-xs">
                 Give your flashcard a question and answer.
               </CardDescription>
             </div>
@@ -65,7 +65,7 @@ export default function FlashCardInput({
                 <Textarea
                   id="name"
                   placeholder="Your Question?"
-                  className="h-28 md:h-40 md:text-md lg:text-md lg:h-56"
+                  className="h-28 md:h-40 md:text-md lg:text-md lg:h-56 text-xs"
                   value={question}
                   onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                     setQuestion(e.target.value)
@@ -77,7 +77,7 @@ export default function FlashCardInput({
                 <Textarea
                   id="name"
                   placeholder="The Answer."
-                  className="h-28 md:h-40 md:text-md lg:text-md lg:h-56"
+                  className="h-28 md:h-40 md:text-md lg:text-md lg:h-56 text-xs"
                   value={answer}
                   onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                     setAnswer(e.target.value)

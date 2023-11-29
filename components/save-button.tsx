@@ -71,6 +71,8 @@ export default function SaveButton({
       toast({
         description: "Deck saved successfully",
       });
+      setDeckName("");
+      router.refresh();
       router.back();
     }
   };

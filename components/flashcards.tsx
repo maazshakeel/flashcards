@@ -1,15 +1,6 @@
 import FlashCard from "@/components/flashcard";
+import { getDecks } from "@/utils/get-decks";
 import Link from "next/link";
-import getConfig from "next/config";
-
-const { publicRuntimeConfig } = getConfig();
-
-async function getDecks() {
-  const res = await fetch(`${publicRuntimeConfig.apiUrl}/api/deck/`, {
-    headers: { "content-type": "application/json" },
-  });
-  return res.json();
-}
 
 export default async function FlashCards() {
   const decks = await getDecks();
@@ -20,10 +11,21 @@ export default async function FlashCards() {
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {decks.data.map((deck: any) => (
-        <Link href="/" key={deck.id}>
-          <FlashCard title={deck.deckName} description="No description." />
+        <Link
+          href={{ pathname: `/${deck.id}/play`, query: deck.flashcard }}
+          key={deck.id}
+        >
+          <FlashCard
+            title={deck.deckName}
+            description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero unde, quibusdam aliquid magnam similique cum."
+          />
         </Link>
       ))}
+      {decks.data.length === 0 && (
+        <p className="text-xl text-muted-foreground">
+          No flashcard yet been added!
+        </p>
+      )}
     </div>
   );
 }

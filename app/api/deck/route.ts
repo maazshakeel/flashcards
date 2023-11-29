@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
         flashcards: {
           create: {
             answer: flashcards[0].answer,
-            question: flashcards[0].answer,
+            question: flashcards[0].question,
           },
         },
       },

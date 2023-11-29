@@ -5,6 +5,7 @@ import SaveButton from "@/components/save-button";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TFlashcard } from "@/types/flash-card.types";
+import { getDecks } from "@/utils/get-decks";
 import { Plus, PlusSquare } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -13,6 +14,7 @@ type CreateDeckProps = {};
 
 export default function CreateDeck({}: CreateDeckProps) {
   const [deckName, setDeckName] = useState<string>("");
+  const [done, setDone] = useState<boolean>(false);
 
   const [flashcards, setFlashcards] = useState<TFlashcard[]>([
     { id: 1, question: "", answer: "" }, // Initial flashcard

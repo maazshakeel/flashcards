@@ -6,6 +6,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
 
+// Create a new instance of QueryClient
+
 export const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
