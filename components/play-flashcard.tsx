@@ -33,7 +33,7 @@ const Play: React.FC<PlayProps> = ({ flashcards, deckName }: PlayProps) => {
 
   // Handle the click event to show the answer
   const handleShowAnswer = () => {
-    setShowAnswer(true);
+    setShowAnswer((prevState) => !prevState);
   };
 
   // Handle the click event to move to the next card
@@ -51,7 +51,7 @@ const Play: React.FC<PlayProps> = ({ flashcards, deckName }: PlayProps) => {
   // Return the component JSX
   return (
     <div className="p-8 bg-background">
-      <h1 className="text-3xl font-extrabold mb-4 text-primary text-center">
+      <h1 className="text-3xl font-extrabold mb-4 text-foreground text-center">
         {deckName}
       </h1>
 
@@ -64,23 +64,25 @@ const Play: React.FC<PlayProps> = ({ flashcards, deckName }: PlayProps) => {
             {flashcards.map((_, index) => (
               <div key={index} className="relative">
                 <div
-                  className={`flex h-8 w-8 rounded-full bg-accent cursor-pointer transition-all ${
+                  className={`flex h-8 w-8 rounded-full bg-accent cursor-pointer transition-all items-center justify-center ${
                     currentCardIndex === index ? "bg-primary" : ""
                   }`}
                   onClick={() => setCurrentCardIndex(index)}
-                ></div>
+                >
+                  {index + 1}
+                </div>
               </div>
             ))}
           </div>
 
           <Card className="max-w-sm bg-card rounded-lg overflow-hidden shadow-md mx-auto">
             <CardHeader>
-              <CardTitle className="text-xl font-semibold mb-2 text-primary">
+              <CardTitle className="text-xl font-semibold mb-2 text-foreground">
                 Card {currentCardIndex + 1}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lg text-primary">
+              <p className="text-lg text-foreground">
                 {showAnswer
                   ? flashcards[currentCardIndex].answer
                   : flashcards[currentCardIndex].question}
@@ -92,7 +94,7 @@ const Play: React.FC<PlayProps> = ({ flashcards, deckName }: PlayProps) => {
                 variant="outline"
                 className="bg-accent text-accent-foreground py-2 px-4 rounded focus:outline-none"
               >
-                Show Answer
+                {!showAnswer === true ? "Show" : "Hide"} Answer
               </Button>
               <Button
                 onClick={handleNextCard}
