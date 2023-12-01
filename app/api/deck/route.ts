@@ -7,7 +7,13 @@ export async function POST(request: NextRequest) {
   try {
     const req = await request.json();
     const { deckName, flashcards }: CreateDeckRequestBody = req;
-    console.log(req.flashcards);
+
+    const flashcardsWithoutIds = flashcards.map((card) => ({
+      question: card.question,
+      answer: card.answer,
+    }));
+
+    console.log(flashcardsWithoutIds);
     // return NextResponse.json({ status: 200 });
 
     // Create Deck
@@ -15,10 +21,7 @@ export async function POST(request: NextRequest) {
       data: {
         deckName,
         flashcards: {
-          create: {
-            answer: flashcards[0].answer,
-            question: flashcards[0].question,
-          },
+          create: flashcardsWithoutIds,
         },
       },
       include: {
@@ -31,7 +34,7 @@ export async function POST(request: NextRequest) {
     console.error(error);
     return NextResponse.json(
       { success: false, message: "Error uploading data." },
-      { status: 500 }
+      { status: 500 },
     );
   } finally {
     await db.$disconnect();
@@ -52,7 +55,7 @@ export async function GET() {
     console.error(error);
     return NextResponse.json(
       { success: false, message: "Error fetching decks." },
-      { status: 500 }
+      { status: 500 },
     );
   } finally {
     await db.$disconnect();

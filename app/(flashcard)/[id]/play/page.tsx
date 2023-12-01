@@ -3,20 +3,21 @@ import getConfig from "next/config";
 
 const { publicRuntimeConfig } = getConfig();
 
-async function getDecks(id: string) {
+async function getFlashCards(id: string) {
   const res = await fetch(`http://localhost:3000/api/deck/${id}`, {
     headers: { "content-type": "application/json" },
   });
   return res.json();
 }
 export default async function Page({ params }: any) {
-  const flashcards = await getDecks(params.id);
-  console.log("===============");
-  console.log(flashcards.data[0].flashcards);
-  console.log("===============");
+  const cards = await getFlashCards(params.id);
+  const flashcards = cards.data[0].flashcards;
+  console.log(cards.data[0].deckName);
   return (
     <div>
-      <div>My Post: {params.id}</div>;<div></div>
+      <div>
+        <Play flashcards={flashcards} deckName={cards.data[0].deckName} />
+      </div>
     </div>
   );
 }
