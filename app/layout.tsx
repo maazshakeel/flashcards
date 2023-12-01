@@ -6,6 +6,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
 
+import { Toaster } from "@/components/ui/toaster";
+
 // Create a new instance of QueryClient
 
 export const fontSans = FontSans({
@@ -40,6 +42,8 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
+
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
