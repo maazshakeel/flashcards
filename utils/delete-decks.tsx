@@ -1,9 +1,9 @@
 import getConfig from "next/config";
 
-const { publicRuntimeConfig } = getConfig();
+const apiUrl = getConfig().publicRuntimeConfig.apiUrl;
 
 export async function deleteDeck(id: number) {
-  const res = await fetch(`${publicRuntimeConfig.apiUrl}/api/deck/${id}`, {
+  const res = await fetch(`${apiUrl}/api/deck/${id}`, {
     headers: { "content-type": "application/json" },
     cache: "no-cache",
     method: "DELETE",

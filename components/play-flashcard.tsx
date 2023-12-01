@@ -60,15 +60,16 @@ const Play: React.FC<PlayProps> = ({ flashcards, deckName }: PlayProps) => {
       ) : (
         <div>
           {/* Navbar to show all cards and highlight the active one */}
-          <div className="w-full flex justify-center gap-2 mb-4">
+          <div className="w-full flex justify-center gap-2 mb-4 relative">
             {flashcards.map((_, index) => (
-              <div
-                key={index}
-                className={`h-8 w-8 rounded-full bg-accent cursor-pointer ${
-                  currentCardIndex === index ? "bg-primary" : ""
-                }`}
-                onClick={() => setCurrentCardIndex(index)}
-              />
+              <div key={index} className="relative">
+                <div
+                  className={`flex h-8 w-8 rounded-full bg-accent cursor-pointer transition-all ${
+                    currentCardIndex === index ? "bg-primary" : ""
+                  }`}
+                  onClick={() => setCurrentCardIndex(index)}
+                ></div>
+              </div>
             ))}
           </div>
 

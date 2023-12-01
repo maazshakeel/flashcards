@@ -13,7 +13,7 @@ export default function Loading() {
         {Array.from({ length: 12 }, (_, i) => i + 1).map((id) => (
           <div
             key={id}
-            className="flex items-start space-x-4 pt-3 pl-3 hover:bg-none hover:cursor-default"
+            className="flex items-start space-x-4 pt-3 pr-3 hover:bg-none hover:cursor-default"
           >
             <div className="space-y-5">
               <Skeleton className="h-4 w-[100px]" />
