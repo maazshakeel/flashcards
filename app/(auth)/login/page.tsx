@@ -17,8 +17,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -44,7 +46,7 @@ export default function Login() {
         </h1>
         <Button
           variant={"outline"}
-          className="bg-accent w-72 sm:w-96 flex justify-center items-center gap-1 text-sm sm:text-md hover:bg-slate-200 font-bold"
+          className="bg-accent w-72 sm:w-96 flex justify-center items-center gap-1 text-sm sm:text-md font-bold"
         >
           <div>
             <svg
@@ -99,7 +101,6 @@ export default function Login() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="password"
@@ -119,13 +120,15 @@ export default function Login() {
             </FormItem>
           )}
         />
-
         <div className="flex w-full items-center justify-center">
           <Button
             variant={"link"}
             className="text-xs tracking-tight sm:text-lg"
+            onClick={() => {
+              router.push("/signup");
+            }}
           >
-            Dont have an account?
+            Don't have an account?
           </Button>
           <Button type="submit" className="w-36">
             Login
