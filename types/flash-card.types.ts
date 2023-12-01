@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction } from "react";
 export type FlashCardProps = {
   title: string;
   description: string;
+  id: string;
 };
 
 export type TFlashcard = {

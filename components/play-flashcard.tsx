@@ -1,64 +1,112 @@
 "use client";
 
-import { useState } from "react";
+// Import necessary dependencies
+import { useState, useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
+// Define the Flashcard type
 type Flashcard = {
   id: number;
+  deckId: number;
   question: string;
   answer: string;
 };
 
+// Define the PlayProps type
 type PlayProps = {
   flashcards: Flashcard[];
+  deckName: string;
 };
 
-export default function Play({ flashcards }: PlayProps) {
+// Define the Play component
+const Play: React.FC<PlayProps> = ({ flashcards, deckName }: PlayProps) => {
+  // Set up state for the current card index and whether to show the answer
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
 
+  // Handle the click event to show the answer
+  const handleShowAnswer = () => {
+    setShowAnswer(true);
+  };
+
+  // Handle the click event to move to the next card
   const handleNextCard = () => {
     setShowAnswer(false);
     setCurrentCardIndex((prevIndex) => (prevIndex + 1) % flashcards.length);
   };
 
-  const handleShowAnswer = () => {
-    setShowAnswer(true);
-  };
+  // Reset the current card index when the flashcards prop changes
+  useEffect(() => {
+    setCurrentCardIndex(0);
+    setShowAnswer(false);
+  }, [flashcards]);
 
+  // Return the component JSX
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-extrabold mb-4">Flashcard Play</h1>
+    <div className="p-8 bg-background">
+      <h1 className="text-3xl font-extrabold mb-4 text-primary">
+        Flashcard Play
+      </h1>
+
+      <h1 className="text-primary">{deckName.toString()}</h1>
 
       {flashcards.length === 0 ? (
-        <p>No flashcards available.</p>
+        <p className="text-primary">No flashcards available.</p>
       ) : (
-        <div className="max-w-sm bg-white rounded-lg overflow-hidden shadow-md mx-auto">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-2">
-              Card {currentCardIndex + 1}
-            </h2>
-            {!showAnswer ? (
-              <p className="text-lg">{flashcards[currentCardIndex].question}</p>
-            ) : (
-              <p className="text-lg">{flashcards[currentCardIndex].answer}</p>
-            )}
+        <div>
+          {/* Navbar to show all cards and highlight the active one */}
+          <div className="flex mb-4 space-x-4">
+            {flashcards.map((_, index) => (
+              <div
+                key={index}
+                className={`h-8 w-8 rounded-full bg-accent cursor-pointer ${
+                  currentCardIndex === index ? "bg-primary" : ""
+                }`}
+                onClick={() => setCurrentCardIndex(index)}
+              />
+            ))}
           </div>
-          <div className="flex justify-between p-4">
-            <button
-              onClick={handleShowAnswer}
-              className="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none"
-            >
-              Show Answer
-            </button>
-            <button
-              onClick={handleNextCard}
-              className="bg-green-500 text-white py-2 px-4 rounded focus:outline-none"
-            >
-              Next Card
-            </button>
-          </div>
+
+          <Card className="max-w-sm bg-card rounded-lg overflow-hidden shadow-md mx-auto">
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold mb-2 text-primary">
+                Card {currentCardIndex + 1}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-lg text-primary">
+                {showAnswer
+                  ? flashcards[currentCardIndex].answer
+                  : flashcards[currentCardIndex].question}
+              </p>
+            </CardContent>
+            <CardFooter className="flex justify-between p-4">
+              <Button
+                onClick={handleShowAnswer}
+                variant="outline"
+                className="bg-accent text-accent-foreground py-2 px-4 rounded focus:outline-none"
+              >
+                Show Answer
+              </Button>
+              <Button
+                onClick={handleNextCard}
+                className="bg-primary text-primary-foreground py-2 px-4 rounded focus:outline-none"
+              >
+                Next Card
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
       )}
     </div>
   );
-}
+};
+
+export default Play;

@@ -21,5 +21,5 @@ model Flashcard {
   deckId   Int
   question String
   answer   String
-  deck     Deck     @relation(fields: [deckId], references: [id])
+  deck     Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
 }
