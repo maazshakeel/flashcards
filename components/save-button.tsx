@@ -38,6 +38,7 @@ export default function SaveButton({
   const router = useRouter();
 
   const handleSave = async () => {
+    let id = 0;
     try {
       setIsSaving(true);
 
@@ -51,9 +52,13 @@ export default function SaveButton({
           deckName,
           flashcards,
         }),
-      });
+      })
+        .then((j) => j.json())
+        .then((k) => {
+          id = k.data.id;
+        });
 
-      if (!response.ok) {
+      if (!response.success) {
         // Handle error if the API request is not successful
         console.error("Failed to save changes");
 
@@ -69,7 +74,16 @@ export default function SaveButton({
     } finally {
       setIsSaving(false);
       toast({
+        variant: "default",
         description: "Deck saved successfully",
+        action: (
+          <ToastAction
+            onClick={() => router.push(`${id}/play`)}
+            altText="Try again"
+          >
+            Play
+          </ToastAction>
+        ),
       });
       setDeckName("");
       router.refresh();
