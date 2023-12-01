@@ -12,4 +12,8 @@ if (!global.__db) {
 
 db = global.__db;
 
+if (process.env.NODE_ENV === "production") {
+  db = new PrismaClient();
+}
+
 export { db };
