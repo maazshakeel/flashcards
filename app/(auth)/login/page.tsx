@@ -36,7 +36,7 @@ export default function Login() {
   return (
     <Form {...form}>
       <form
-        className="w-full h-screen flex flex-col items-center justify-start space-y-2 gap-1 mt-24"
+        className="w-full h-screen flex flex-col items-center justify-start space-y-3 gap-1 mt-24"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
