@@ -13,6 +13,7 @@ export default async function FlashCards() {
       {decks.data.map((deck: any) => (
         <FlashCard
           title={deck.deckName}
+          key={deck.id}
           id={deck.id.toString()}
           description="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero unde, quibusdam aliquid magnam similique cum."
         />

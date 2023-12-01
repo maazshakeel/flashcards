@@ -51,18 +51,16 @@ const Play: React.FC<PlayProps> = ({ flashcards, deckName }: PlayProps) => {
   // Return the component JSX
   return (
     <div className="p-8 bg-background">
-      <h1 className="text-3xl font-extrabold mb-4 text-primary">
-        Flashcard Play
+      <h1 className="text-3xl font-extrabold mb-4 text-primary text-center">
+        {deckName}
       </h1>
-
-      <h1 className="text-primary">{deckName.toString()}</h1>
 
       {flashcards.length === 0 ? (
         <p className="text-primary">No flashcards available.</p>
       ) : (
         <div>
           {/* Navbar to show all cards and highlight the active one */}
-          <div className="flex mb-4 space-x-4">
+          <div className="w-full flex justify-center gap-2 mb-4">
             {flashcards.map((_, index) => (
               <div
                 key={index}
