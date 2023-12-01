@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-const formSchema = z.object({
+const loginFormSchema = z.object({
   email: z.string().email({
     message: "Invalid email address.",
   }),
@@ -9,4 +9,4 @@ const formSchema = z.object({
   }),
 });
 
-export { formSchema };
+export { loginFormSchema };
