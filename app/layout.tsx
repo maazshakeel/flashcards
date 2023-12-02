@@ -8,8 +8,8 @@ import Navbar from "@/components/navbar";
 
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/AuthContext";
-
-// Create a new instance of QueryClient
+import { getServerSession } from "next-auth";
+import { SessionProvider } from "next-auth/react";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,11 +22,13 @@ export const metadata: Metadata = {
   description: "Play and Practice with interactive flashcards.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession();
+
   return (
     <html lang="en">
       <body
@@ -41,12 +43,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>
-            <Navbar />
-            {children}
+          <SessionProvider>
+            <AuthProvider>
+              <Navbar />
+              {children}
 
-            <Toaster />
-          </AuthProvider>
+              <Toaster />
+            </AuthProvider>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>
