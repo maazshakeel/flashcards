@@ -7,9 +7,8 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
 
 import { Toaster } from "@/components/ui/toaster";
-import { AuthProvider } from "@/context/AuthContext";
 import { getServerSession } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+import SessionProvider from "@/components/session-provider";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -43,13 +42,11 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SessionProvider>
-            <AuthProvider>
-              <Navbar />
-              {children}
+          <SessionProvider session={session}>
+            <Navbar />
+            {children}
 
-              <Toaster />
-            </AuthProvider>
+            <Toaster />
           </SessionProvider>
         </ThemeProvider>
       </body>

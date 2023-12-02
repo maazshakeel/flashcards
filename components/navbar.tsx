@@ -13,9 +13,13 @@ import Link from "next/link";
 import { Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
+import { useSession } from "next-auth/react";
+import { Button } from "./ui/button";
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const router = useRouter();
+
   return (
     <Menubar className="p-6">
       <div className="w-full flex justify-between items-center">
@@ -24,24 +28,52 @@ export default function Navbar() {
           <MenubarMenu>LetFlash</MenubarMenu>
         </Link>
         <div className="flex gap-1 items-center">
-          <MenubarMenu>
-            <MenubarTrigger>Create Deck</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem onClick={() => router.push("/create")}>
-                Deck <MenubarShortcut>⌘T</MenubarShortcut>
-              </MenubarItem>
-              <MenubarItem
+          {session ? (
+            <>
+              <MenubarMenu>
+                <MenubarTrigger>Create Deck</MenubarTrigger>
+
+                <MenubarContent>
+                  <MenubarItem onClick={() => router.push("/create")}>
+                    Deck <MenubarShortcut>⌘T</MenubarShortcut>
+                  </MenubarItem>
+                  <MenubarItem
+                    onClick={() => {
+                      toast({
+                        description: "This feature is still in process!",
+                      });
+                    }}
+                  >
+                    Upload File <MenubarShortcut>⌘N</MenubarShortcut>
+                  </MenubarItem>
+                </MenubarContent>
+              </MenubarMenu>
+
+              <Button variant={"ghost"} className="hover:bg-background">
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant={"ghost"}
                 onClick={() => {
-                  toast({
-                    description: "This feature is still in process!",
-                  });
+                  router.push("/login");
                 }}
               >
-                Upload File <MenubarShortcut>⌘N</MenubarShortcut>
-              </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
+                Login
+              </Button>
 
+              <Button
+                variant={"ghost"}
+                onClick={() => {
+                  router.push("/signup");
+                }}
+              >
+                Create Account
+              </Button>
+            </>
+          )}
           <ModeToggle />
         </div>
       </div>

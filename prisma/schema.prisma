@@ -10,10 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Deck {
+model User {
   id       Int      @id @default(autoincrement())
-  deckName String
+  email    String   @unique
+  password String
+  decks    Deck[]
+}
+
+model Deck {
+  id         Int        @id @default(autoincrement())
+  deckName   String
   flashcards Flashcard[]
+  userId     Int?
+  user       User?      @relation(fields: [userId], references: [id])
 }
 
 model Flashcard {
