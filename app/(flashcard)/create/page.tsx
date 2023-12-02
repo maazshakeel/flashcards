@@ -5,18 +5,15 @@ import SaveButton from "@/components/save-button";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TFlashcard } from "@/types/flash-card.types";
-import { Plus, PlusSquare } from "lucide-react";
+import { PlusSquare } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 
 type CreateDeckProps = {};
 
 export default function CreateDeck({}: CreateDeckProps) {
-  const { data: session } = useSession();
   const [deckName, setDeckName] = useState<string>("");
-  const [done, setDone] = useState<boolean>(false);
 
   const [flashcards, setFlashcards] = useState<TFlashcard[]>([
     { id: 1, question: "", answer: "" }, // Initial flashcard
@@ -43,8 +40,6 @@ export default function CreateDeck({}: CreateDeckProps) {
     const updatedFlashcards = flashcards.filter((card) => card.id !== id);
     setFlashcards(updatedFlashcards);
   };
-
-  if (!session) return redirect("/login");
 
   return (
     <div className="p-14 flex flex-col gap-6">
