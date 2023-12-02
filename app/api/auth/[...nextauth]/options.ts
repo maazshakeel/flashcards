@@ -1,16 +1,12 @@
-// import GoogleProvider from "next-auth/providers/google";
-//
-// export const options = {
-//   providers: [
-//     //@ts-ignore
-//     GoogleProvider({
-//       profile(profile) {
-//         console.log("Google Profile: ", profile);
-//         return {
-//           ...profile,
-//           id: profile.sub,
-//         };
-//       },
-//     }),
-//   ],
-// };
+import type { NextAuthOptions } from "next-auth";
+import GithubProvider from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
+
+export const options: NextAuthOptions = {
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
+    }),
+  ],
+};
