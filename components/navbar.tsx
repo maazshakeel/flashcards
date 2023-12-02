@@ -13,8 +13,9 @@ import Link from "next/link";
 import { Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
+import LogoutButton from "./logout-button";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -49,9 +50,7 @@ export default function Navbar() {
                 </MenubarContent>
               </MenubarMenu>
 
-              <Button variant={"ghost"} className="hover:bg-background">
-                Logout
-              </Button>
+              <LogoutButton />
             </>
           ) : (
             <>
