@@ -3,6 +3,7 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "@/lib/db";
 import { User } from "@prisma/client";
+import { login } from "@/lib/auth";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -26,22 +27,17 @@ export const options: NextAuthOptions = {
           placeholder: "Password",
         },
       },
-      async authorize(credentials) {
-        const user: any = await db.user.findUnique({
-          where: { email: credentials?.email },
-        });
+      async authorize(credentials, req) {
+        if (!credentials?.email || !credentials?.password) return null;
 
-        // If the user doesn't exist or the password is incorrect, return null
-        if (!user || user.password !== credentials?.password) {
+        try {
+          const user = await login(credentials.email, credentials.password);
+          return user;
+        } catch (e: any) {
+          console.error(e);
           return null;
         }
-
-        // If authentication is successful, return the user object
-        return { id: user.id, email: user.email };
       },
     }),
   ],
-  pages: {
-    signIn: "/login",
-  },
 };
