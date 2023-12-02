@@ -1,5 +1,8 @@
 import Play from "@/components/play-flashcard";
+import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
 import getConfig from "next/config";
+import { redirect } from "next/navigation";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -13,6 +16,11 @@ export default async function Page({ params }: any) {
   const cards = await getFlashCards(params.id);
   const flashcards = cards.data[0].flashcards;
   console.log(cards.data[0].deckName);
+
+  const session = await getServerSession();
+
+  if (!session || !session.user) redirect("/login");
+
   return (
     <div>
       <div>
