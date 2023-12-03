@@ -1,10 +1,12 @@
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { CreateDeckRequestBody } from "@/types/flash-card.types";
+import { getSession } from "next-auth/react";
 
 // CREATE DECK
 export async function POST(request: NextRequest) {
   try {
+    const session = await getSession();
     const req = await request.json();
     const { deckName, flashcards }: CreateDeckRequestBody = req;
 
