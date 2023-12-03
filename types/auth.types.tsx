@@ -16,9 +16,7 @@ const registerFormSchema = z.object({
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
-  confirmPassword: z.string().refine((data: any) => data === data.password, {
-    message: "Passwords do not match.",
-  }),
+  confirmPassword: z.string(),
 });
 
 export { loginFormSchema, registerFormSchema };

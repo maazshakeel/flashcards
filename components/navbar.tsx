@@ -24,7 +24,7 @@ export default function Navbar() {
   return (
     <Menubar className="p-6">
       <div className="w-full flex justify-between items-center">
-        <Link href="/" className="flex gap-1 items-center">
+        <Link href="/" role="link" className="flex gap-1 items-center">
           <Zap size={20} />
           <MenubarMenu>LetFlash</MenubarMenu>
         </Link>

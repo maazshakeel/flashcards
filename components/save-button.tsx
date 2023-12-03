@@ -43,7 +43,7 @@ export default function SaveButton({
       setIsSaving(true);
 
       // Make API request to /createDeck
-      const response = await fetch("http://localhost:3000/api/deck", {
+      const response: any = await fetch("http://localhost:3000/api/deck", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

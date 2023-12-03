@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { toast } from "./ui/use-toast";
 import { useState } from "react";
@@ -50,7 +50,7 @@ export default function LoginForm() {
       router.push("/");
     }
   };
-  // 2. Define a submit handler.
+
   async function onSubmit(values: z.infer<typeof loginFormSchema>) {
     setSubmiting(true);
     const user: any = await signIn("credentials", {
@@ -58,8 +58,7 @@ export default function LoginForm() {
       password: values.password,
       redirect: false,
     });
-    console.log(user);
-    if (user.ok) {
+    if (user.ok === true) {
       setSubmiting(false);
       router.push("/");
     } else {
@@ -139,7 +138,7 @@ export default function LoginForm() {
               router.push("/signup");
             }}
           >
-            Don't have an account?
+            Don&apos;t have an account?
           </Button>
           <Button
             type="submit"

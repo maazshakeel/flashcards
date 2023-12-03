@@ -18,6 +18,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
+import { signIn } from "next-auth/react";
 
 export default function SignUp() {
   const router = useRouter();
@@ -31,10 +33,58 @@ export default function SignUp() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof registerFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof registerFormSchema>) {
     console.log(values);
+    if (values.password !== values.confirmPassword) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Passwords do not match!",
+      });
+      return;
+    }
+    try {
+      const response = await fetch("http://localhost:3000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
+      // Registration successful, loggin user in
+      const user: any = await signIn("credentials", {
+        email: values.email,
+        password: values.password,
+        redirect: false,
+      });
+      if (user.ok === true) {
+        router.push("/");
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Couldn't sign in!",
+        });
+      }
+    } catch (error: any) {
+      console.error("Error registering user:", error.message);
+      // Handle the error as needed
+
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+    }
   }
   return (
     <Form {...form}>
