@@ -60,6 +60,12 @@ export default function LoginForm() {
     });
     if (user.ok === true) {
       setSubmiting(false);
+
+      toast({
+        variant: "default",
+        title: "Success",
+        description: "Logged In!",
+      });
       router.push("/");
     } else {
       setSubmiting(false);

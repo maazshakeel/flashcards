@@ -67,6 +67,11 @@ export default function SignUp() {
         redirect: false,
       });
       if (user.ok === true) {
+        toast({
+          variant: "default",
+          title: "Success",
+          description: "Account Created!",
+        });
         router.push("/");
       } else {
         toast({
