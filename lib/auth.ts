@@ -14,7 +14,11 @@ export const login: LoginFn = async (email, password) => {
   console.log("===================auth===============");
   console.log(user);
   console.log("===================auth===============");
-  if (user || user.password.toString() !== password.toString()) {
+  console.log(user.password);
+  console.log(password);
+
+  console.log(user && user.password === password);
+  if (user && user.password === password) {
     user.password = "";
     return user;
   } else throw new Error("User Not Found!");
