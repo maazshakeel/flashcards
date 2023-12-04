@@ -1,14 +1,12 @@
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { CreateDeckRequestBody } from "@/types/flash-card.types";
-import { getSession } from "next-auth/react";
 
 // CREATE DECK
 export async function POST(request: NextRequest) {
   try {
-    const session = await getSession();
     const req = await request.json();
-    const { deckName, flashcards }: CreateDeckRequestBody = req;
+    const { deckName, flashcards, email }: CreateDeckRequestBody = req;
 
     const flashcardsWithoutIds = flashcards.map((card) => ({
       question: card.question,
@@ -19,6 +17,22 @@ export async function POST(request: NextRequest) {
     // return NextResponse.json({ status: 200 });
 
     // Create Deck
+    const new_deck = await db.deck.create({
+      data: {
+        deckName,
+        flashcards: {
+          create: flashcardsWithoutIds,
+        },
+        user: {
+          connect: {
+            email,
+          },
+        },
+      },
+      include: {
+        flashcards: true,
+      },
+    });
     const deck = await db.deck.create({
       data: {
         deckName,

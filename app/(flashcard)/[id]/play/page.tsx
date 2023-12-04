@@ -1,7 +1,7 @@
 import Play from "@/components/play-flashcard";
 
 async function getFlashCards(id: string) {
-  const res = await fetch(`http://localhost:3000/api/deck/${id}`, {
+  const res = await fetch(`/api/deck/${id}`, {
     headers: { "content-type": "application/json" },
   });
   return res.json();

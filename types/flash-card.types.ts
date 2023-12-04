@@ -14,6 +14,7 @@ export type TFlashcard = {
 };
 export type CreateDeckRequestBody = {
   deckName: string;
+  email: string;
   flashcards: TFlashcard[];
 };
 
