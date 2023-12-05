@@ -1,9 +1,12 @@
 import Play from "@/components/play-flashcard";
 
 async function getFlashCards(id: string) {
-  const res = await fetch(`/api/deck/${id}`, {
-    headers: { "content-type": "application/json" },
-  });
+  const res = await fetch(
+    `https://projectwithnoname9993.vercel.app/api/deck/${id}`,
+    {
+      headers: { "content-type": "application/json" },
+    },
+  );
   return res.json();
 }
 export default async function Page({ params }: any) {

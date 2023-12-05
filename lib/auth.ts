@@ -9,6 +9,7 @@ export const login: LoginFn = async (email, password) => {
     select: {
       email: true,
       password: true,
+      id: true,
     },
   });
   console.log("===================auth===============");

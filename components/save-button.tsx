@@ -43,16 +43,19 @@ export default function SaveButton({
       setIsSaving(true);
 
       // Make API request to /createDeck
-      const response: any = await fetch("http://localhost:3000/api/deck", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response: any = await fetch(
+        "https://projectwithnoname9993.vercel.app/api/deck",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            deckName,
+            flashcards,
+          }),
         },
-        body: JSON.stringify({
-          deckName,
-          flashcards,
-        }),
-      })
+      )
         .then((j) => j.json())
         .then((k) => {
           id = k.data.id;

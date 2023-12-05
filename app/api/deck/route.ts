@@ -58,9 +58,13 @@ export async function POST(request: NextRequest) {
 }
 
 // GET ALL DECKS
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const req: any = await request.json();
     const decks = await db.deck.findMany({
+      where: {
+        userId: 1,
+      },
       include: {
         flashcards: true,
       },
